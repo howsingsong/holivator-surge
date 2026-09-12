@@ -1,15 +1,15 @@
 #!name=Holivator 自動簽到
 #!desc=自動取得 Token、Token 自動續期、每日自動簽到
-#!author=Eason
+#!author=howsingsong
 
 #!arguments=hour:0,minute:20,notify_success:true,notify_failure:true,notify_token:true
-#!arguments-desc=設定每日簽到時間，以及成功、失敗與 Token 更新通知
+#!arguments-desc=可設定每日簽到時間，以及簽到成功、簽到失敗、Token 更新通知
 
 [Script]
 
-Holivator 登入資料擷取 = type=http-response,pattern=^https:\/\/holivator\.de\/api\/v1\/miniapp\/exchange-initdata$,requires-body=true,script-path=https://gist.githubusercontent.com/YOUR_USERNAME/GIST_ID/raw/holivator_capture.js,argument="notify_token={{{notify_token}}}",script-update-interval=3600
+Holivator 登入資料擷取 = type=http-response,pattern=^https:\/\/holivator\.de\/api\/v1\/miniapp\/exchange-initdata$,requires-body=true,script-path=https://raw.githubusercontent.com/howsingsong/holivator-surge/main/holivator_capture.js,argument="notify_token={{{notify_token}}}",script-update-interval=3600
 
-Holivator 每日自動簽到 = type=cron,cronexp="{{{minute}}} {{{hour}}} * * *",script-path=https://gist.githubusercontent.com/YOUR_USERNAME/GIST_ID/raw/holivator_checkin.js,argument="notify_success={{{notify_success}}}&notify_failure={{{notify_failure}}}",wake-system=true,timeout=60,script-update-interval=3600
+Holivator 每日自動簽到 = type=cron,cronexp="{{{minute}}} {{{hour}}} * * *",script-path=https://raw.githubusercontent.com/howsingsong/holivator-surge/main/holivator_checkin.js,argument="notify_success={{{notify_success}}}&notify_failure={{{notify_failure}}}",wake-system=true,timeout=60,script-update-interval=3600
 
 [MITM]
 
